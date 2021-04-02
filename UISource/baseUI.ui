@@ -454,5 +454,22 @@
   </layout>
  </widget>
  <resources/>
- <connections/>
+ <connections>
+  <connection>
+   <sender>input_1</sender>
+   <signal>editingFinished()</signal>
+   <receiver>power_self_1</receiver>
+   <slot>clear()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>371</x>
+     <y>165</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>532</x>
+     <y>165</y>
+    </hint>
+   </hints>
+  </connection>
+ </connections>
 </ui>

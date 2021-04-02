@@ -65,6 +65,7 @@ class MainWindow(object):
         self.menubar.addAction(self.show.menuAction())
         self.retranslateUi(MainWindow)
         self.tabWidget.setCurrentIndex(0)
+        self.dataTab=[]
 
         # 为菜单选项添加点击事件
         self.addClickEventForMenuOption(MainWindow)
@@ -94,17 +95,24 @@ class MainWindow(object):
         ui.show()
         ui.exec_()
 
-    def addTab(self):
-        # TODO: 需要更新增加tab后的折线图和图表
+    def addTab(self,id):
+        for temp in self.dataTab:
+            if temp.baseUI.data.id==id:
+                self.tabWidget.setCurrentIndex(self.tabWidget.indexOf(temp))
+                return
         tab = QtWidgets.QWidget()
+        self.dataTab.append(tab)
         ui = BaseUI()
-        ui.setupUi(tab)
+        ui.setupUi(tab,id)
         self.tabWidget.addTab(tab, "")
-        self.tabWidget.setTabText(self.tabWidget.indexOf(tab), "机组")
+        self.tabWidget.setTabText(self.tabWidget.indexOf(tab), tab.baseUI.data.name)
         self.tabWidget.setCurrentIndex(self.tabWidget.indexOf(tab))
-        # tab.setObjectName("home")
-
+        #TODO 此处更新图表和折线图
 
     def closeTab(self):
-        # TODO: 需要更新关闭tab后的折线图和图表
+        for temp in self.dataTab:
+            if temp==self.tabWidget.currentWidget():
+                self.dataTab.remove(temp)
+                continue
         self.tabWidget.removeTab(self.tabWidget.currentIndex())
+        # TODO: 需要更新关闭tab后的折线图和图表

@@ -71,9 +71,7 @@ class AddPowerDialoge(QtWidgets.QDialog):
         self.ID.setText(_translate("Dialog", "0"))
 
     def accept(self) -> None:
-        # TODO:此处需要更新
-        # self.ID.text()
-        self.mainWindow.addTab()
+        self.mainWindow.addTab(self.ID.text())
         super().accept()
 
 
