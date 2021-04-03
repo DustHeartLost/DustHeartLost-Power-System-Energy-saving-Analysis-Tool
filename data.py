@@ -45,4 +45,4 @@ class Data(object):
         #计算总煤耗
         self.coal_all=self.consume_coal_1+self.consume_coal_2+self.consume_coal_3+self.consume_coal_4
         #年平均供电煤耗
-        self.average_coal=self.coal_all/self.power_all
+        self.average_coal=round(self.coal_all/self.power_all,2)

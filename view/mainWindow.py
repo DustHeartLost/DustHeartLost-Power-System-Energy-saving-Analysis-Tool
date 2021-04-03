@@ -1,16 +1,17 @@
 from PyQt5 import QtCore, QtWidgets
-
 from view.addPowerDialoge import AddPowerDialoge
 from view.baseUI import BaseUI
+from view.form import Form
 
 
 class MainWindow(object):
     def setupUi(self, MainWindow):
-        MainWindow.setObjectName("mainWindow")
-        MainWindow.resize(976, 785)
-        MainWindow.setMinimumSize(QtCore.QSize(433, 335))
-        # MainWindow.setMaximumSize(QtCore.QSize(976, 854))
-        self.centralwidget = QtWidgets.QWidget(MainWindow)
+        self.mainwindow=MainWindow
+        self.mainwindow.setObjectName("self.mainwindow")
+        self.mainwindow.resize(1900, 900)
+        self.mainwindow.setMinimumSize(QtCore.QSize(433, 335))
+        # self.mainwindow.setMaximumSize(QtCore.QSize(976, 854))
+        self.centralwidget = QtWidgets.QWidget(self.mainwindow)
         self.centralwidget.setObjectName("centralwidget")
         self.gridLayout = QtWidgets.QGridLayout(self.centralwidget)
         self.gridLayout.setObjectName("gridLayout")
@@ -21,26 +22,26 @@ class MainWindow(object):
         self.tabWidget.setTabsClosable(True)
         self.tabWidget.addTab(self.tab, "")
         self.gridLayout.addWidget(self.tabWidget, 0, 0, 1, 1)
-        MainWindow.setCentralWidget(self.centralwidget)
-        self.menubar = QtWidgets.QMenuBar(MainWindow)
+        self.mainwindow.setCentralWidget(self.centralwidget)
+        self.menubar = QtWidgets.QMenuBar(self.mainwindow)
         self.menubar.setGeometry(QtCore.QRect(0, 0, 976, 26))
         self.menubar.setObjectName("menubar")
         self.file = QtWidgets.QMenu(self.menubar)
         self.file.setObjectName("file")
         self.show = QtWidgets.QMenu(self.menubar)
         self.show.setObjectName("show")
-        MainWindow.setMenuBar(self.menubar)
-        self.formView = QtWidgets.QDockWidget(MainWindow)
+        self.mainwindow.setMenuBar(self.menubar)
+        self.formView = QtWidgets.QDockWidget(self.mainwindow)
         self.formView.setEnabled(True)
         self.formView.setFeatures(QtWidgets.QDockWidget.AllDockWidgetFeatures)
-        self.formView.setAllowedAreas(QtCore.Qt.BottomDockWidgetArea)
+        self.formView.setAllowedAreas(QtCore.Qt.RightDockWidgetArea)
         self.formView.setObjectName("formView")
-        self.formContents = QtWidgets.QWidget()
-        self.formContents.setObjectName("formContents")
-        self.formView.setWidget(self.formContents)
-        self.formView.hide()
-        MainWindow.addDockWidget(QtCore.Qt.DockWidgetArea(8), self.formView)
-        self.lineChartView = QtWidgets.QDockWidget(MainWindow)
+        self.formView.widget=Form()
+        self.formView.setWidget(self.formView.widget)
+        self.formView.setMinimumSize(980,600)
+        self.formView.show()
+        self.mainwindow.addDockWidget(QtCore.Qt.DockWidgetArea(2), self.formView)
+        self.lineChartView = QtWidgets.QDockWidget(self.mainwindow)
         self.lineChartView.setFeatures(QtWidgets.QDockWidget.AllDockWidgetFeatures)
         self.lineChartView.setAllowedAreas(QtCore.Qt.BottomDockWidgetArea)
         self.lineChartView.setObjectName("lineChartView")
@@ -48,12 +49,12 @@ class MainWindow(object):
         self.lineChartViewContents.setObjectName("lineChartViewContents")
         self.lineChartView.setWidget(self.lineChartViewContents)
         self.lineChartView.hide()
-        MainWindow.addDockWidget(QtCore.Qt.DockWidgetArea(8), self.lineChartView)
-        self.line_chart = QtWidgets.QAction(MainWindow)
+        self.mainwindow.addDockWidget(QtCore.Qt.DockWidgetArea(8), self.lineChartView)
+        self.line_chart = QtWidgets.QAction(self.mainwindow)
         self.line_chart.setObjectName("line_chart")
-        self.form = QtWidgets.QAction(MainWindow)
+        self.form = QtWidgets.QAction(self.mainwindow)
         self.form.setObjectName("form")
-        self.add = QtWidgets.QAction(MainWindow)
+        self.add = QtWidgets.QAction(self.mainwindow)
         self.add.setCheckable(False)
         self.add.setObjectName("add")
         self.formView.raise_()
@@ -63,32 +64,32 @@ class MainWindow(object):
         self.show.addAction(self.line_chart)
         self.menubar.addAction(self.file.menuAction())
         self.menubar.addAction(self.show.menuAction())
-        self.retranslateUi(MainWindow)
-        self.tabWidget.setCurrentIndex(0)
+        self.retranslateUi()
+        self.tabWidget.setCurrentIndex(-1)
         self.dataTab=[]
 
         # 为菜单选项添加点击事件
-        self.addClickEventForMenuOption(MainWindow)
+        self.addClickEventForMenuOption()
 
-    def retranslateUi(self, MainWindow):
+    def retranslateUi(self):
         _translate = QtCore.QCoreApplication.translate
-        MainWindow.setWindowTitle(_translate("MainWindow", "MainWindow"))
-        self.tabWidget.setTabText(self.tabWidget.indexOf(self.tab), _translate("MainWindow", "首页"))
-        self.file.setTitle(_translate("MainWindow", "文件"))
-        self.show.setTitle(_translate("MainWindow", "显示"))
-        self.formView.setWindowTitle(_translate("MainWindow", "图表"))
-        self.lineChartView.setWindowTitle(_translate("MainWindow", "折线图"))
-        self.line_chart.setText(_translate("MainWindow", "数据统计---折线图"))
-        self.form.setText(_translate("MainWindow", "数据统计---图表"))
-        self.add.setText(_translate("MainWindow", "添加机组"))
+        self.mainwindow.setWindowTitle(_translate("self.mainwindow", "self.mainwindow"))
+        self.tabWidget.setTabText(self.tabWidget.indexOf(self.tab), _translate("self.mainwindow", "首页"))
+        self.file.setTitle(_translate("self.mainwindow", "文件"))
+        self.show.setTitle(_translate("self.mainwindow", "显示"))
+        self.formView.setWindowTitle(_translate("self.mainwindow", "图表"))
+        self.lineChartView.setWindowTitle(_translate("self.mainwindow", "折线图"))
+        self.line_chart.setText(_translate("self.mainwindow", "数据统计---折线图"))
+        self.form.setText(_translate("self.mainwindow", "数据统计---图表"))
+        self.add.setText(_translate("self.mainwindow", "添加机组"))
 
-    def addClickEventForMenuOption(self, MainWindow):
+    def addClickEventForMenuOption(self):
         # 为菜单按钮绑定事件
         self.line_chart.triggered.connect(self.lineChartView.show)
         self.form.triggered.connect(self.formView.show)
         self.add.triggered.connect(self.addPowerGroup)
         self.tabWidget.tabCloseRequested.connect(self.closeTab)
-        QtCore.QMetaObject.connectSlotsByName(MainWindow)
+        QtCore.QMetaObject.connectSlotsByName(self.mainwindow)
 
     def addPowerGroup(self):
         ui = AddPowerDialoge(self)
@@ -103,16 +104,15 @@ class MainWindow(object):
         tab = QtWidgets.QWidget()
         self.dataTab.append(tab)
         ui = BaseUI()
-        ui.setupUi(tab,id)
+        ui.setupUi(tab,id,self)
         self.tabWidget.addTab(tab, "")
         self.tabWidget.setTabText(self.tabWidget.indexOf(tab), tab.baseUI.data.name)
         self.tabWidget.setCurrentIndex(self.tabWidget.indexOf(tab))
-        #TODO 此处更新图表和折线图
 
-    def closeTab(self):
+    def closeTab(self,index):
         for temp in self.dataTab:
-            if temp==self.tabWidget.currentWidget():
+            if temp==self.tabWidget.widget(index):
                 self.dataTab.remove(temp)
-                continue
-        self.tabWidget.removeTab(self.tabWidget.currentIndex())
-        # TODO: 需要更新关闭tab后的折线图和图表
+                break
+        self.tabWidget.removeTab(index)
+        self.formView.widget.updateForm(self.dataTab)
