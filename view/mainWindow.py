@@ -48,8 +48,11 @@ class MainWindow(object):
         self.lineChartView.setObjectName("lineChartView")
         self.lineChartView.widget=LineCHart()
         self.lineChartView.setWidget(self.lineChartView.widget)
+        self.lineChartView.setMinimumSize(980, 600)
         self.lineChartView.show()
         self.mainwindow.addDockWidget(QtCore.Qt.DockWidgetArea(2), self.lineChartView)
+        self.mainwindow.tabifyDockWidget(self.lineChartView,self.formView)
+
         self.line_chart = QtWidgets.QAction(self.mainwindow)
         self.line_chart.setObjectName("line_chart")
         self.form = QtWidgets.QAction(self.mainwindow)
