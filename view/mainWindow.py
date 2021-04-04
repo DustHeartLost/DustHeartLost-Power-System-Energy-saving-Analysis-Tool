@@ -2,6 +2,7 @@ from PyQt5 import QtCore, QtWidgets
 from view.addPowerDialoge import AddPowerDialoge
 from view.baseUI import BaseUI
 from view.form import Form
+from view.lineChart import LineCHart
 
 
 class MainWindow(object):
@@ -43,13 +44,12 @@ class MainWindow(object):
         self.mainwindow.addDockWidget(QtCore.Qt.DockWidgetArea(2), self.formView)
         self.lineChartView = QtWidgets.QDockWidget(self.mainwindow)
         self.lineChartView.setFeatures(QtWidgets.QDockWidget.AllDockWidgetFeatures)
-        self.lineChartView.setAllowedAreas(QtCore.Qt.BottomDockWidgetArea)
+        self.lineChartView.setAllowedAreas(QtCore.Qt.RightDockWidgetArea)
         self.lineChartView.setObjectName("lineChartView")
-        self.lineChartViewContents = QtWidgets.QWidget()
-        self.lineChartViewContents.setObjectName("lineChartViewContents")
-        self.lineChartView.setWidget(self.lineChartViewContents)
-        self.lineChartView.hide()
-        self.mainwindow.addDockWidget(QtCore.Qt.DockWidgetArea(8), self.lineChartView)
+        self.lineChartView.widget=LineCHart()
+        self.lineChartView.setWidget(self.lineChartView.widget)
+        self.lineChartView.show()
+        self.mainwindow.addDockWidget(QtCore.Qt.DockWidgetArea(2), self.lineChartView)
         self.line_chart = QtWidgets.QAction(self.mainwindow)
         self.line_chart.setObjectName("line_chart")
         self.form = QtWidgets.QAction(self.mainwindow)
@@ -108,11 +108,14 @@ class MainWindow(object):
         self.tabWidget.addTab(tab, "")
         self.tabWidget.setTabText(self.tabWidget.indexOf(tab), tab.baseUI.data.name)
         self.tabWidget.setCurrentIndex(self.tabWidget.indexOf(tab))
+        self.lineChartView.widget.updateLineChart(self.dataTab)
 
     def closeTab(self,index):
         for temp in self.dataTab:
             if temp==self.tabWidget.widget(index):
                 self.dataTab.remove(temp)
+                self.formView.widget.updateForm(self.dataTab)
+                self.lineChartView.widget.updateLineChart(self.dataTab)
                 break
         self.tabWidget.removeTab(index)
-        self.formView.widget.updateForm(self.dataTab)
+
