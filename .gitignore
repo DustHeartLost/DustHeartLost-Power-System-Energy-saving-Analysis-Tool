@@ -1,0 +1,7 @@
+/__pycache__/
+/build/
+/dist/
+/UISource/
+/main.spec
+/.idea/
+/view/__pycache__
